@@ -1,0 +1,33 @@
+{:paths ["src"
+         "resources"
+         "target/webly"]
+
+ :deps {org.clojure/clojure    {:mvn/version "1.11.1"}
+        org.pinkgorilla/goldly {:mvn/version "0.4.621"}
+        ; goldly extensions:
+        org.pinkgorilla/ui-tailwind {:mvn/version "0.0.5"} ; tailwind css classes
+        org.pinkgorilla/ui-repl {:mvn/version "0.0.72"}
+        org.pinkgorilla/ui-fonts {:mvn/version "0.0.3"} ; font awesome
+        org.pinkgorilla/options {:local/root "../" :deps/manifest :deps}
+        }
+
+ :aliases {:demo
+           {:exec-fn modular.system/start!
+            :exec-args {:profile "jetty"
+                        :config ["webly/config.edn"
+                                 "goldly/config.edn"
+                                 "demo-config.edn"]
+                        :services "goldly/services.edn"}}
+
+           :npm-install
+           {:exec-fn goldly.app.build/goldly-build
+            :exec-args {:profile "npm-install"}}
+
+           :compile
+           {:exec-fn goldly.app.build/goldly-build
+            :exec-args {:profile "compile2"}}
+
+           }
+
+;
+ }

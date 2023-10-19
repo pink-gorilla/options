@@ -1,0 +1,11 @@
+{:name "options"
+ ; build
+ :lazy false
+
+ :cljs-namespace [options.core]
+
+ :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}}
+
+ 
+ ;
+ }
