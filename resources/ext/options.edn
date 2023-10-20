@@ -6,6 +6,9 @@
 
  :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}}
 
- 
+ ; runtime
+
+ :theme {:available  {:options {true ["options/options.css"]}}
+         :current {:options true}}
  ;
  }
