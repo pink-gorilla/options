@@ -4,7 +4,12 @@
 
  :cljs-namespace [options.core]
 
- :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}}
+ :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}
+                    'options.editor {'bool options.editor/bool
+                                     'button options.editor/button
+                                     'select options.editor/select
+                                     'string options.editor/string
+                                     'view options.editor/view}}
 
  ; runtime
 
