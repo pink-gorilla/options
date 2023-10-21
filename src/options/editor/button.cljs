@@ -4,15 +4,15 @@
 ; https://github.com/knipferrc/tails-ui/blob/master/src/components/Button.re
 
 (defn editor-button [{:keys [_set-fn options]} _current-val]
-  (let [{:keys [class style name on-click] 
-         :or {class "" 
+  (let [{:keys [class style name on-click]
+         :or {class ""
               name ""
               style {}}} options]
-   [:button
+    [:button
      {:class class
       :style style
-      :on-click (fn [_ & _] 
-                  (when on-click 
+      :on-click (fn [_ & _]
+                  (when on-click
                     (on-click)))}
-    name]))
+     name]))
 

@@ -49,15 +49,12 @@
               :spec :button
               :class "bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" ; py-2 px-4
               :on-click #(js/alert "yeah!")}
-             
+
              {:name "view"
               :spec :view
-              :path :msg
-              }
+              :path :msg}
              {:name "bad"
-              :spec :view2}
-             ]})
-
+              :spec :view2}]})
 
 (defn h1 [s]
   [:<>
@@ -67,6 +64,9 @@
 
 (defn page-options [_]
   [:div
+
+   [:a {:href "/controls"}
+    [:p "goto controls"]]
 
    [h1 "state"]
    [:div (pr-str @state)]

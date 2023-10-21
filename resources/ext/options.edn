@@ -2,14 +2,15 @@
  ; build
  :lazy false
 
- :cljs-namespace [options.core]
+ :cljs-namespace [options.core
+                  options.edit]
 
  :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}
-                    'options.editor {'bool options.editor/bool
-                                     'button options.editor/button
-                                     'select options.editor/select
-                                     'string options.editor/string
-                                     'view options.editor/view}}
+                    'options.editr {'bool options.edit/bool
+                                     'button options.edit/button
+                                     'select options.edit/select
+                                     'string options.edit/string
+                                     'view options.edit/view}}
 
  ; runtime
 

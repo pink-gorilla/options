@@ -6,8 +6,7 @@
    [options.editor.bool :refer [editor-bool]]
    [options.editor.string :refer [editor-string]]
    [options.editor.select :refer [editor-select select?]]
-   [options.editor.button :refer [editor-button]]
-   ))
+   [options.editor.button :refer [editor-button]]))
 
 (defn get-editor-fn [{:keys [options] :as config} current-val]
   (let [{:keys [spec]} options]
@@ -34,7 +33,6 @@
      [:span name] ; <label for= "pet-select" >Choose a pet:</label>
      (get-editor-fn config current-val)]))
 
-
 (defn create-edit-element [state options]
   (let [kw (:path options)
         set-fn (fn [v]
@@ -43,7 +41,7 @@
                    (swap! state assoc kw v)))]
     [edit-element {:set-fn set-fn
                    :options options}
-     (if kw 
+     (if kw
        (kw @state)
        nil)]))
 

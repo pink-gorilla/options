@@ -31,7 +31,9 @@
     v))
 
 (defn editor-select [{:keys [set-fn options]} current-val]
-  (let [{:keys [class spec] :or {class ""}} options
+  (let [{:keys [class spec]
+         :or {class ""
+              spec []}} options
         option1 (first spec)
         spec (if (map? option1)
                spec
