@@ -1,19 +1,15 @@
 {:name "options"
  ; build
  :lazy false
-
  :cljs-namespace [options.core
                   options.edit]
-
  :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}
-                    'options.editr {'bool options.edit/bool
-                                     'button options.edit/button
-                                     'select options.edit/select
-                                     'string options.edit/string
-                                     'view options.edit/view}}
-
+                    'options.edit {'bool options.edit/bool
+                                   'button options.edit/button
+                                   'select options.edit/select
+                                   'string options.edit/string
+                                   'view options.edit/view}}
  ; runtime
-
  :theme {:available  {:options {true ["options/options.css"]}}
          :current {:options true}}
  ;

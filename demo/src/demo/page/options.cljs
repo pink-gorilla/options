@@ -13,7 +13,7 @@
              :pet :hamster
              ; bool
              :run-parallel true
-             :debug? false
+             :environment {:enabled true}
              ; string
              :search ""
              ; view
@@ -38,8 +38,8 @@
               :name "RunParallel?"
               :spec :bool
               :class "pt-0 px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:path :debug?
-              :name "DebugMode"
+             {:path [:environment :enabled] 
+              :name "EnvEnabled?"
               :spec :bool}
              {:path :search
               :name "SearchBox"

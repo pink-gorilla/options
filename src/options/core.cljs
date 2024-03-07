@@ -33,17 +33,33 @@
      [:span name] ; <label for= "pet-select" >Choose a pet:</label>
      (get-editor-fn config current-val)]))
 
+(defn get-value [state path]
+  (cond
+    (keyword? path)
+    (path @state)
+
+    (vector? path)
+    (get-in @state path)
+
+    :else
+    nil))
+
+(defn set-value [state path v]
+  (println "set-value path: " path " value: " v)
+  (cond
+    (keyword? path)
+    (swap! state assoc path v)
+
+    (vector? path)
+    (swap! state assoc-in path v)
+
+    :else
+    nil))
+
 (defn create-edit-element [state options]
-  (let [kw (:path options)
-        set-fn (fn [v]
-                 (when kw
-                   (println "setting state for kw: " kw " to val: " v)
-                   (swap! state assoc kw v)))]
-    [edit-element {:set-fn set-fn
-                   :options options}
-     (if kw
-       (kw @state)
-       nil)]))
+  [edit-element {:set-fn #(set-value state (:path options) %)
+                 :options options}
+   (get-value state (:path options))])
 
 (defn options-ui [{:keys [class style] :as styling}  ; styling
                   {:keys [current state options]
