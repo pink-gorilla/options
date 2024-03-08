@@ -15,7 +15,7 @@
              :temperature 36.4
              ; bool
              :run-parallel true
-             :environment {:enabled true}
+             [:environment :enabled] true
              ; string
              :search ""
              ; view

@@ -34,27 +34,11 @@
      (get-editor-fn config current-val)]))
 
 (defn get-value [state path]
-  (cond
-    (keyword? path)
-    (path @state)
-
-    (vector? path)
-    (get-in @state path)
-
-    :else
-    nil))
+  (get @state path))
 
 (defn set-value [state path v]
   (println "set-value path: " path " value: " v)
-  (cond
-    (keyword? path)
-    (swap! state assoc path v)
-
-    (vector? path)
-    (swap! state assoc-in path v)
-
-    :else
-    nil))
+  (swap! state assoc path v))
 
 (defn create-edit-element [state options]
   [edit-element {:set-fn #(set-value state (:path options) %)
