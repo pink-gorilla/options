@@ -1,9 +1,10 @@
 {:name "demo"
  :cljs-routes  {"" demo.page.options/page-options
                 "controls" demo.page.controls/page-controls
-                }
+                "trateg" demo.page.trateg/page-trateg}
  :sci-cljs-ns [demo.page.options
-               demo.page.controls]
+               demo.page.controls
+               demo.page.trateg]
 
  
 }

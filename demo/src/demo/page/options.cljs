@@ -77,8 +77,8 @@
 (defn page-options [_]
   [:div
 
-   [:a {:href "/controls"}
-    [:p "goto controls"]]
+   [:a {:href "/controls"} [:p "goto controls"]]
+   [:a {:href "/trateg"} [:p "goto trateg"]]
 
    [h1 "state"]
    [:div (pr-str @state)]
