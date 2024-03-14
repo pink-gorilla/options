@@ -20,10 +20,12 @@
              :search ""
              ; view
              :msg "hello!"}
-   :options [{:path :year
+   :options [{:type :select
+              :path :year
               :name "Year"
               :spec (range 2018 2024)}
-             {:path :client
+             {:type :select
+              :path :client
               :name "Client"
               :spec [{:id 1 :name "Batman"}
                      {:id 2 :name "Robin"}
@@ -31,7 +33,8 @@
                      {:id 4 :name "Dumbledor"}
                      {:id 5 :name "The Hulk"}]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:path :vendor
+             {:type :select
+              :path :vendor
               :name "Vendor"
               :spec [{:id "1" :name "Batman"}
                      {:id "2" :name "Robin"}
@@ -39,7 +42,8 @@
                      {:id "4" :name "Dumbledor"}
                      {:id "5" :name "The Hulk"}]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:path :pet
+             {:type :select
+              :path :pet
               :name "Pet"
               :spec [:cat :dog :parrot :hamster]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
@@ -47,24 +51,24 @@
               :name "Temperature"
               :spec [36.0 36.4 36.5 36.6 36.7 36.8 39.3]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:path :run-parallel
+             {:type :bool
+              :path :run-parallel
               :name "RunParallel?"
-              :spec :bool
               :class "pt-0 px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:path [:environment :enabled] 
-              :name "EnvEnabled?"
-              :spec :bool}
-             {:path :search
+             {:type :bool
+              :path [:environment :enabled] 
+              :name "EnvEnabled?"}
+             {:type :string
+              :path :search
               :name "SearchBox"
-              :spec :string
               :class "px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:name "Go!"
-              :spec :button
+             {:type :button
+              :name "Go!"
               :class "bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" ; py-2 px-4
               :on-click #(js/alert "yeah!")}
-             {:name "view"
-              :spec :view
-              :path :msg}
+             {:type :view
+              :path :msg
+              :name "view"}
              {:name "bad"
               :spec :view2}]})
 

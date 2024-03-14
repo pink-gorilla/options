@@ -3,7 +3,8 @@
  :lazy false
  :cljs-namespace [options.core
                   options.edit]
- :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui}
+ :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui
+                                   'register-editor options.core/register-editor}
                     'options.edit {'bool options.edit/bool
                                    'button options.edit/button
                                    'select options.edit/select

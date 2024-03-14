@@ -5,51 +5,48 @@
    [options.editor.view :refer [editor-view]]
    [options.editor.bool :refer [editor-bool]]
    [options.editor.string :refer [editor-string]]
-   [options.editor.select :refer [editor-select select?]]
+   [options.editor.select :refer [editor-select]]
    [options.editor.button :refer [editor-button]]))
 
-(defn get-editor-fn [{:keys [options] :as config} current-val]
-  (let [{:keys [spec]} options]
-    (println "get-editor-fn options: " options "current-val: " current-val)
-    (cond
-      (= spec :bool)
-      (editor-bool config current-val)
+; editors registry
 
-      (= spec :string)
-      (editor-string config current-val)
+(defonce editors
+  (atom {:bool editor-bool
+         :string editor-string
+         :button editor-button
+         :select editor-select
+         :view editor-view}))
 
-      (= spec :button)
-      (editor-button config current-val)
+(defn register-editor [t f]
+  (swap! editors assoc t f))
 
-      (select? spec)
-      (editor-select config current-val)
+(defn get-editor [t] 
+  (or (get @editors t) editor-view))
 
-      :else
-      (editor-view config current-val))))
-
-(defn edit-element [{:keys [options] :as config} current-val]
-  (let [{:keys [name]} options]
-    [:<>
-     [:span name] ; <label for= "pet-select" >Choose a pet:</label>
-     (get-editor-fn config current-val)]))
 
 (defn get-value [state path]
-  (get @state path))
+  (when path
+    (get @state path)))
 
 (defn set-value [state path v]
-  (println "set-value path: " path " value: " v)
-  (swap! state assoc path v))
+  (when path 
+    (println "set-value path: " path " value: " v)
+    (swap! state assoc path v)))
 
-(defn create-edit-element [state options]
-  [edit-element {:set-fn #(set-value state (:path options) %)
-                 :options options}
-   (get-value state (:path options))])
+(defn create-edit-element [state {:keys [path name type] :as options}]
+  (let [editor (get-editor type)]
+    [:<>
+     [:span name] ; <label for= "pet-select" >Choose a pet:</label>
+     [editor {:state state
+              :set-fn #(set-value state path %)
+              :options options}
+      (get-value state path)]]))
 
-(defn options-ui [{:keys [class style] :as styling}  ; styling
+(defn options-ui [{:keys [class style]}  ; styling
                   {:keys [current state options]
                    :or {state (r/atom current)} :as config}] ; data
   (reset! state current)
-  (fn [_styling {:keys [current state options] :as config}]
+  (fn [_styling {:keys [state options] :as config}]
     (into [:div {:style style
                  :class class}]
           (map #(create-edit-element state %) options))))

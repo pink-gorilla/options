@@ -55,10 +55,6 @@
                                     (set-fn v)))}]
            (map #(entry->option current-val %) spec))))
 
-(defn select? [spec]
-  (or (vector? spec)
-      (seq? spec)))
-
 
 
 
