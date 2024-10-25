@@ -4,6 +4,7 @@
  :cljs-namespace [options.core
                   options.edit]
  :cljs-ns-bindings {'options.core {'options-ui options.core/options-ui
+                                   'options-ui2 options.core/options-ui2
                                    'register-editor options.core/register-editor}
                     'options.edit {'bool options.edit/bool
                                    'button options.edit/button

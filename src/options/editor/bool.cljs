@@ -7,5 +7,5 @@
              :checked current-val
              :on-change (fn [e]
                           (let [v (-> e .-target .-checked)]
-                            (println "setting checkbox to: " v)
+                            ;(println "setting checkbox to: " v)
                             (set-fn v)))}]))

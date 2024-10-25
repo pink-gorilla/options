@@ -33,7 +33,7 @@
     [:option {:value id} name]))
 
 (defn get-id [spec id]
-  (println "get-id: " id " in spec: " spec)
+  ;(println "get-id: " id " in spec: " spec)
   (-> (filter #(= id (:id %)) spec)
       first))
 
@@ -41,14 +41,17 @@
   (let [{:keys [class spec]
          :or {class ""
               spec []}} options
-        mapped? (map? (first spec))
-        spec (if mapped?
+        spec? (map? (first spec))
+        spec (if spec?
                (spec->spec spec)
-               (vals->spec spec))]
+               (vals->spec spec))
+        current-val (if spec?
+                      current-val
+                      (str current-val))]
     (into  [:select {:class class
                      :on-change (fn [e]
                                   (let [id-str (-> e .-target .-value)
-                                        entry (get-id spec id-str) 
+                                        entry (get-id spec id-str)
                                         v (:val entry)]
                                     ;(println "entry: " entry)
                                     ;(println "setting select to id: " id-str "val: " v)

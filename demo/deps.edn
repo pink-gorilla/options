@@ -3,31 +3,23 @@
          "target/webly"]
 
  :deps {org.clojure/clojure    {:mvn/version "1.11.1"}
-        org.pinkgorilla/goldly {:mvn/version "0.4.621"}
+        org.pinkgorilla/webly {:mvn/version "0.7.702"} ; build tool
         ; goldly extensions:
-        org.pinkgorilla/ui-tailwind {:mvn/version "0.0.5"} ; tailwind css classes
-        org.pinkgorilla/ui-repl {:mvn/version "0.0.72"}
-        org.pinkgorilla/ui-fonts {:mvn/version "0.0.3"} ; font awesome
-        org.pinkgorilla/options {:local/root "../" :deps/manifest :deps}
-        }
+        org.pinkgorilla/ui-tailwind {:mvn/version "0.1.8"} ; tailwind css classes
+        ;org.pinkgorilla/ui-repl {:mvn/version "0.0.72"}
+        ;org.pinkgorilla/ui-fonts {:mvn/version "0.2.5"} ; font awesome
+        org.pinkgorilla/options {:local/root "../" :deps/manifest :deps}}
 
- :aliases {:demo
-           {:exec-fn modular.system/start!
-            :exec-args {:profile "jetty"
-                        :config ["webly/config.edn"
-                                 "goldly/config.edn"
-                                 "demo-config.edn"]
-                        :services "goldly/services.edn"}}
-
-           :npm-install
-           {:exec-fn goldly.app.build/goldly-build
+ :aliases {:npm-install
+           {:exec-fn webly.app.app/webly-build
+            :config {}
             :exec-args {:profile "npm-install"}}
-
-           :compile
-           {:exec-fn goldly.app.build/goldly-build
-            :exec-args {:profile "compile2"}}
-
-           }
+           :demo
+           {:exec-fn modular.system/start!
+            :exec-args {;:profile "jetty"
+                        :profile "watch"
+                        :config {}
+                        :services "demo-services.edn"}}}
 
 ;
  }

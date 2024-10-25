@@ -1,10 +1,13 @@
-{:name "demo"
- :cljs-routes  {"" demo.page.options/page-options
-                "controls" demo.page.controls/page-controls
-                "trateg" demo.page.trateg/page-trateg}
- :sci-cljs-ns [demo.page.options
-               demo.page.controls
-               demo.page.trateg]
-
- 
-}
+{:name "demo-app"
+ :lazy true
+ :depends-on #{;:options
+ }
+ :cljs-namespace [demo.page.core
+                  demo.page.controls
+                  demo.page.quanta]
+ :cljs-ns-bindings {'demo.page.core {'page  demo.page.core/page}
+                    'demo.page.controls {'page  demo.page.controls/page}
+                    'demo.page.quanta {'page  demo.page.quanta/page}}
+ :cljs-routes  {"" demo.page.core/page
+                "controls" demo.page.controls/page
+                "quanta" demo.page.quanta/page}}

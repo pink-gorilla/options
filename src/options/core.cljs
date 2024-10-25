@@ -20,33 +20,37 @@
 (defn register-editor [t f]
   (swap! editors assoc t f))
 
-(defn get-editor [t] 
+(defn get-editor [t]
   (or (get @editors t) editor-view))
 
-
-(defn get-value [state path]
-  (when path
-    (get @state path)))
-
-(defn set-value [state path v]
-  (when path 
-    (println "set-value path: " path " value: " v)
-    (swap! state assoc path v)))
-
-(defn create-edit-element [state {:keys [path name type] :as options}]
+(defn create-edit-element [{:keys [set-fn get-fn]}  {:keys [path name type] :as options}]
   (let [editor (get-editor type)]
     [:<>
      [:span name] ; <label for= "pet-select" >Choose a pet:</label>
-     [editor {:state state
-              :set-fn #(set-value state path %)
+     [editor {:set-fn (partial set-fn path)
               :options options}
-      (get-value state path)]]))
+      (get-fn path)]]))
+
+(defn options-ui2 [{:keys [class style
+                           edit
+                           state
+                           set-fn
+                           get-fn]
+                    :or {set-fn (fn [path v]
+                                 ;(println "setting " path " to: " v)
+                                  (swap! state assoc path v))
+                         get-fn (fn [path]
+                                  (get @state path))}}]
+  (into [:div {:style style
+               :class class}]
+        (map #(create-edit-element {:set-fn set-fn
+                                    :get-fn get-fn} %) edit)))
 
 (defn options-ui [{:keys [class style]}  ; styling
                   {:keys [current state options]
                    :or {state (r/atom current)} :as config}] ; data
   (reset! state current)
-  (fn [_styling {:keys [state options] :as config}]
-    (into [:div {:style style
-                 :class class}]
-          (map #(create-edit-element state %) options))))
+  [options-ui2 {:class class
+                :style style
+                :state state
+                :edit options}])

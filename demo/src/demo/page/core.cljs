@@ -1,4 +1,4 @@
-(ns demo.page.options
+(ns demo.page.core
   (:require
    [reagent.core :as r]
    [options.core :refer [options-ui]]))
@@ -78,11 +78,11 @@
    [:br]
    [:h1 {:class "pt-5 pb-5 text-xl text-bold text-blue-700"} s]])
 
-(defn page-options [_]
+(defn page [_]
   [:div
 
    [:a {:href "/controls"} [:p "goto controls"]]
-   [:a {:href "/trateg"} [:p "goto trateg"]]
+   [:a {:href "/quanta"} [:p "goto quanta"]]
 
    [h1 "state"]
    [:div (pr-str @state)]

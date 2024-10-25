@@ -76,12 +76,9 @@
 
 # demo
 
-The demo uses the extension manager from goldly to add options to goldly.
-
 ```
 cd demo
-clj -X:demo:npm-install
-clj -X:demo:compile
+clj -X:npm-install
 clj -X:demo
 ```
 

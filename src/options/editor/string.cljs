@@ -8,5 +8,5 @@
              :placeholder name
              :on-change (fn [e]
                           (let [v (-> e .-target .-value)]
-                            (println "setting checkbox to: " v)
+                            ;(println "setting string to: " v)
                             (set-fn v)))}]))

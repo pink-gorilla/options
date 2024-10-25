@@ -12,7 +12,7 @@
 (def state-pet (r/atom :cat))
 (def state-bool (r/atom true))
 
-(defn page-controls [_]
+(defn page [_]
   [:div
    [:a {:href "/"}
     [:p "goto options"]]
@@ -21,10 +21,12 @@
    [:div " pet: " (pr-str @state-pet)
     " bool: " (pr-str @state-bool)]
 
+   [h1 "editor bool"]
    [edit/bool {:set-fn #(reset! state-bool %)
                :options {:class "bg-red-300 p-2"}}
     @state-bool]
 
+   [h1 "editor select"]
    [edit/select
     {:set-fn #(reset! state-pet %)
      :options {:class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"
