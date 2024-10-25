@@ -13,7 +13,7 @@
     display: grid;
     gap: "1rem";
     grid-template-columns: repeat(auto-fit, 100px 200px ); /* minmax(200px,1fr) */
-    grid-template-rows: repeat(auto-fill, 30px);
+    grid-template-rows: repeat(14px);
     grid-auto-flow: row;
    
   }

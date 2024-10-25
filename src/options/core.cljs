@@ -26,7 +26,12 @@
 (defn create-edit-element [{:keys [set-fn get-fn]}  {:keys [path name type] :as options}]
   (let [editor (get-editor type)]
     [:<>
-     [:span name] ; <label for= "pet-select" >Choose a pet:</label>
+     [:span
+      {:style {:text-overflow "ellipsis"
+               :overflow "hidden"
+               :display "inline-block"}}
+
+      name] ; <label for= "pet-select" >Choose a pet:</label>
      [editor {:set-fn (partial set-fn path)
               :options options}
       (get-fn path)]]))

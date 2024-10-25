@@ -16,7 +16,7 @@
               :spec
               ["EUR/USD" "USD/CHF" "GBP/USD" "USD/SEK" "USD/NOK" "USD/CAD" "USD/JPY"
                "AUD/USD" "NZD/USD" "USD/MXN" "USD/ZAR" "EUR/JPY" "EUR/CHF" "EUR/GBP" "GBP/JPY"]}
-             {:type :select :path [2 :trailing-n], :name "DailyLoad#", :spec [2 5 10 20 30 50 80 100 120 150]}
+             {:type :select :path [2 :trailing-n], :name "trailing#", :spec [2 5 10 20 30 50 80 100 120 150]}
              {:type :select :path [2 :atr-n], :name "dATR#", :spec [5 10 20 30]}
              {:type :select :path [2 :percentile], :name "dPercentile", :spec [10 20 30 40 50 60 70 80 90]}
              {:type :select :path [2 :step], :name "dStep", :spec [0.001 1.0E-4 4.0E-5]}
