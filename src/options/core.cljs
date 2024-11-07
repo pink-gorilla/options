@@ -25,16 +25,23 @@
 
 (defn create-edit-element [{:keys [set-fn get-fn]}  {:keys [path name type] :as options}]
   (let [editor (get-editor type)]
-    [:<>
-     [:span
-      {:style {:text-overflow "ellipsis"
-               :overflow "hidden"
-               :display "inline-block"}}
+    (if (= type :label)
+      ; label only
+      [:<>
+       [:span]
+       [:span.font-bold.font-big name]]
+      ; editor
+      [:<>
+       [:span
+        {:style {:text-overflow "clip"  ; "ellipsis" ; ellipsis needs too much space, clip allws to display a little more text
+                 :white-space "nowrap" ; nowrap is needed;  otherwise text would flow to next line
+                 :overflow "hidden"
+                 :display "inline-block"}}
 
-      name] ; <label for= "pet-select" >Choose a pet:</label>
-     [editor {:set-fn (partial set-fn path)
-              :options options}
-      (get-fn path)]]))
+        name] ; <label for= "pet-select" >Choose a pet:</label>
+       [editor {:set-fn (partial set-fn path)
+                :options options}
+        (get-fn path)]])))
 
 (defn options-ui2 [{:keys [class style
                            edit

@@ -3,7 +3,7 @@
          "target/webly"]
 
  :deps {org.clojure/clojure    {:mvn/version "1.11.1"}
-        org.pinkgorilla/webly {:mvn/version "0.7.702"} ; build tool
+        org.pinkgorilla/webly {:mvn/version "0.7.703"} ; build tool
         ; goldly extensions:
         org.pinkgorilla/ui-tailwind {:mvn/version "0.1.8"} ; tailwind css classes
         ;org.pinkgorilla/ui-repl {:mvn/version "0.0.72"}
