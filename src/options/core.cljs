@@ -23,7 +23,7 @@
 (defn get-editor [t]
   (or (get @editors t) editor-view))
 
-(defn create-edit-element [{:keys [set-fn get-fn]}  {:keys [path name type] :as options}]
+(defn create-edit-element [{:keys [state set-fn get-fn]}  {:keys [path name type] :as options}]
   (let [editor (get-editor type)]
     (if (= type :label)
       ; label only
@@ -39,24 +39,27 @@
                  :display "inline-block"}}
 
         name] ; <label for= "pet-select" >Choose a pet:</label>
-       [editor {:set-fn (partial set-fn path)
+       [editor {:set-fn (partial set-fn state path)
                 :options options}
-        (get-fn path)]])))
+        (get-fn @state path)]])))
 
 (defn options-ui2 [{:keys [class style
                            edit
                            state
                            set-fn
-                           get-fn]
-                    :or {set-fn (fn [path v]
-                                 ;(println "setting " path " to: " v)
-                                  (swap! state assoc path v))
-                         get-fn (fn [path]
-                                  (get @state path))}}]
+                           get-fn]}]
+  (let [set-fn (or set-fn 
+                   (fn [path v]
+                     ;(println "setting " path " to: " v)
+                     (swap! state assoc path v)))
+        get-fn (or get-fn 
+                   (fn [state-val path]
+                    (get state-val path)))]
   (into [:div {:style style
                :class class}]
-        (map #(create-edit-element {:set-fn set-fn
-                                    :get-fn get-fn} %) edit)))
+        (map #(create-edit-element {:state state 
+                                    :set-fn set-fn
+                                    :get-fn get-fn} %) edit))))
 
 (defn options-ui [{:keys [class style]}  ; styling
                   {:keys [current state options]
