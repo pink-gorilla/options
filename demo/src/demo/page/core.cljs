@@ -36,11 +36,11 @@
              {:type :select
               :path :vendor
               :name "Vendor"
-              :spec [{:id "1" :name "Batman"}
-                     {:id "2" :name "Robin"}
-                     {:id "3" :name "Harry Potter"}
-                     {:id "4" :name "Dumbledor"}
-                     {:id "5" :name "The Hulk"}]
+              :spec [{:id "1" :name "Microsoft"}
+                     {:id "2" :name "Apple"}
+                     {:id "3" :name "Google"}
+                     {:id "4" :name "OpenSource"}
+                     {:id "5" :name "Oracle"}]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
              {:type :select
               :path :pet
@@ -48,6 +48,7 @@
               :spec [:cat :dog :parrot :hamster]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
              {:path :temperature
+              :type :select
               :name "Temperature"
               :spec [36.0 36.4 36.5 36.6 36.7 36.8 39.3]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}

@@ -3,7 +3,7 @@
 
 ## features
 - many functions can need options that can be specified by the user
-- the idea is to define a "spec" whcih allows the ui to be generated automatically. 
+- the idea is to define a "spec" which allows the ui to be generated automatically. 
 - options is a map.
 - available specs are:
   - :bool 

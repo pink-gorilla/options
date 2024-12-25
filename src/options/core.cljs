@@ -23,7 +23,7 @@
 (defn get-editor [t]
   (or (get @editors t) editor-view))
 
-(defn create-edit-element [{:keys [state set-fn get-fn]}  {:keys [path name type] :as options}]
+(defn editor-with-label [{:keys [value set-fn]}  {:keys [name type] :as options}]
   (let [editor (get-editor type)]
     (if (= type :label)
       ; label only
@@ -39,9 +39,15 @@
                  :display "inline-block"}}
 
         name] ; <label for= "pet-select" >Choose a pet:</label>
-       [editor {:set-fn (partial set-fn state path)
+       [editor {:set-fn set-fn
                 :options options}
-        (get-fn @state path)]])))
+        value]])))
+
+(defn dynamic-editor [{:keys [state get-fn set-fn]} {:keys [path] :as options}]
+  (let [value (get-fn @state path)
+        set-fn (partial set-fn path)]
+    [editor-with-label {:value value :set-fn set-fn} options]))
+
 
 (defn options-ui2 [{:keys [class style
                            edit
@@ -57,9 +63,9 @@
                     (get state-val path)))]
   (into [:div {:style style
                :class class}]
-        (map #(create-edit-element {:state state 
-                                    :set-fn set-fn
-                                    :get-fn get-fn} %) edit))))
+        (map #(dynamic-editor {:state state 
+                               :get-fn get-fn
+                               :set-fn set-fn} %) edit))))
 
 (defn options-ui [{:keys [class style]}  ; styling
                   {:keys [current state options]

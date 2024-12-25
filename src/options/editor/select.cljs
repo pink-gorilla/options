@@ -2,16 +2,16 @@
 
 ; create-spec from vals
 
-(defn val->map [idx val]
+(defn val->map [val]
   ;; convert spec like 
   ;; [:blue :green :red]
   ;; to a spec with :id and :name
-  {:id (str idx)
+  {:id (str val)
    :name (str val)
    :val val})
 
 (defn vals->spec [vals]
-  (map-indexed val->map vals))
+  (map val->map vals))
 
 ; create-spec from spec
 
@@ -21,42 +21,43 @@
 (defn spec->spec [specs]
   (map add-val specs))
 
-; html helper
+(defn normalize-spec
+  "spec always has to be a vector of elements
+   element type:
+   map: spec of {:id :name}
+   any other type. it is a list of ids which get converted to names with str."
+  [spec]
+   (if (map? (first spec))
+               (spec->spec spec)
+               (vals->spec spec)))
 
-(defn entry->option [current-val {:keys [id name val]}]
+(defn entry->option [{:keys [id name]}]
   ;; works for spec like:
   ;; [{:id 1 :name "Batman"}
   ;;  {:id 2 :name "Robin"}
   ;;  {:id 3 :name "Harry Potter"}]
-  (if (= current-val val)
-    [:option {:value id :selected true} name]
-    [:option {:value id} name]))
+  [:option {:value id} name])
 
-(defn get-id [spec id]
-  ;(println "get-id: " id " in spec: " spec)
-  (-> (filter #(= id (:id %)) spec)
-      first))
 
 (defn editor-select [{:keys [set-fn options]} current-val]
   (let [{:keys [class spec]
          :or {class ""
               spec []}} options
-        spec? (map? (first spec))
-        spec (if spec?
-               (spec->spec spec)
-               (vals->spec spec))
-        current-val (if spec?
-                      current-val
-                      (str current-val))]
+        normalized-spec (normalize-spec spec)
+        dict (into {}
+                   (map (juxt :id identity) normalized-spec))
+        current-val (str current-val)]
+    (println "select val: " current-val)
     (into  [:select {:class class
+                     :value current-val
                      :on-change (fn [e]
-                                  (let [id-str (-> e .-target .-value)
-                                        entry (get-id spec id-str)
+                                  (let [id (-> e .-target .-value)
+                                        entry (get dict id)
                                         v (:val entry)]
                                     ;(println "entry: " entry)
                                     ;(println "setting select to id: " id-str "val: " v)
                                     (set-fn v)))}]
-           (map #(entry->option current-val %) spec))))
+           (map entry->option normalized-spec))))
 
 
 
