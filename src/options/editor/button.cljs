@@ -6,8 +6,8 @@
 (defn editor-button [{:keys [_set-fn options]} _current-val]
   (let [{:keys [class style name on-click]
          :or {class ""
-              name ""
-              style {}}} options]
+              style {}
+              name ""}} options]
     [:button
      {:class class
       :style style

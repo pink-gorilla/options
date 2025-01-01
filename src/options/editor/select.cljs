@@ -40,8 +40,9 @@
 
 
 (defn editor-select [{:keys [set-fn options]} current-val]
-  (let [{:keys [class spec]
+  (let [{:keys [class style spec]
          :or {class ""
+              style {}
               spec []}} options
         normalized-spec (normalize-spec spec)
         dict (into {}
@@ -49,6 +50,7 @@
         current-val (str current-val)]
     (println "select val: " current-val)
     (into  [:select {:class class
+                     :style style
                      :value current-val
                      :on-change (fn [e]
                                   (let [id (-> e .-target .-value)

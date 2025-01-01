@@ -69,7 +69,7 @@
 
 (defn options-ui [{:keys [class style]}  ; styling
                   {:keys [current state options]
-                   :or {state (r/atom current)} :as config}] ; data
+                   :or {state (r/atom current)} :as _config}] ; data
   (reset! state current)
   [options-ui2 {:class class
                 :style style
