@@ -14,9 +14,7 @@
 
 (defn page [_]
   [:div
-   [:a {:href "/"}
-    [:p "goto options"]]
-
+  
    [h1 "state"]
    [:div " pet: " (pr-str @state-pet)
     " bool: " (pr-str @state-bool)]

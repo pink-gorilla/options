@@ -3,22 +3,31 @@
          "target/webly"]
 
  :deps {org.clojure/clojure    {:mvn/version "1.11.1"}
-        org.pinkgorilla/webly {:mvn/version "0.7.703"} ; build tool
-        ; goldly extensions:
+        ; frontend
+        org.pinkgorilla/webly {:mvn/version "0.9.724"} ; build tool
+        org.pinkgorilla/extension {:mvn/version "0.0.16"}
+        org.pinkgorilla/ui-router {:mvn/version "0.2.40"}
+        org.pinkgorilla/ui-dialog-keybindings {:mvn/version "0.1.12"}
+        org.pinkgorilla/css-theme {:mvn/version "0.1.8"}
         org.pinkgorilla/ui-tailwind {:mvn/version "0.1.8"} ; tailwind css classes
-        ;org.pinkgorilla/ui-repl {:mvn/version "0.0.72"}
-        ;org.pinkgorilla/ui-fonts {:mvn/version "0.2.5"} ; font awesome
-        org.pinkgorilla/options {:local/root "../" :deps/manifest :deps}}
+
+        ; this project
+        org.pinkgorilla/options {:local/root "../" :deps/manifest :deps}
+        
+        ; nrepl
+        nrepl/nrepl {:mvn/version "1.3.1"}
+        cider/cider-nrepl {:mvn/version "0.52.1"}
+        }
 
  :aliases {:npm-install
-           {:exec-fn webly.app.app/webly-build
-            :config {}
+           {:exec-fn webly.spa/webly-build
+            :config "demo-config.edn"
             :exec-args {:profile "npm-install"}}
            :demo
            {:exec-fn modular.system/start!
             :exec-args {;:profile "jetty"
                         :profile "watch"
-                        :config {}
+                        :config "demo-config.edn"
                         :services "demo-services.edn"}}}
 
 ;

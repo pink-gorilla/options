@@ -59,8 +59,7 @@
 
 (defn page [_]
   [:div
-   [:a {:href "/controls"}
-    [:p "goto controls"]]
+  
 
    [h1 "state"]
    [:div (pr-str @state)]

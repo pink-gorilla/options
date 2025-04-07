@@ -1,0 +1,13 @@
+{:extension {:disabled #{"ui-tailwind"
+                         "missionary-sci"}}
+
+ :web-server {:http {:port 9090}}
+
+ :spa {:title "Optons Demo"
+       :mount-fn router.app/mount}
+  
+ :reitit {:wrap demo.app/wrap-app}
+ 
+ 
+
+ }

@@ -1,12 +1,47 @@
 {:modular (modular.system/modular-env)
  ;:secrets #include "secrets.edn" ;; externalised and usually "mounted" as a docker/kubernetes secret
  :components
- {:config {:start (modular.config/load-config! (:config #ref [:modular]))}
+ {:config1 {:start (modular.config/load-config! (:config #ref [:modular]))}
+  :config {:start (deref (clip/ref :config1))}
 
-  :exts {:start (extension/discover)}
-
-  :webly {:start (webly.app.app/start-webly
-                  (clip/ref :exts)
-                  (deref (clip/ref :config))
+  :exts {:start (extension/discover (:extension (clip/ref :config)))}
+  
+  ;; executor
+  
+  :exec {:start (flowy.executor/start-executor
+                 {:env {}
+                  :exts (clip/ref :exts)}
+                 (:services (clip/ref :config)))}
+  
+  ;; webserver
+  
+  :webly {:start (webly.spa/start-webly
+                  {:exts (clip/ref :exts)
+                   :ctx {:flowy (flowy.reflower/start-reflower (clip/ref :exec))}}
+                  (clip/ref :config)
                   (:profile #ref [:modular]))
-          :stop (webly.app.app/stop-webly this)}}}
+          :stop (webly.spa/stop-webly this)}
+  
+
+  ; nrepl
+  
+  :nrepl {; the pre-start fucks up the shutdown of the system
+            ;:pre-start (spit ".nrepl-port" "9100")
+          :start (nrepl.server/start-server
+                  :bind "0.0.0.0"
+                  :port 9100
+                  :middleware cider.nrepl.middleware/cider-middleware
+                  :handler cider.nrepl/cider-nrepl-handler)
+          :stop (.close this)}
+
+
+
+  ;; options
+  
+  :option-clj {:start (options.flowy.core/create!
+                       66
+                       (deref demo.options/state2 )
+                       (deref demo.options/options))}
+    
+  
+  }}

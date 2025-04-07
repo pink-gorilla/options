@@ -48,24 +48,23 @@
         set-fn (partial set-fn path)]
     [editor-with-label {:value value :set-fn set-fn} options]))
 
-
 (defn options-ui2 [{:keys [class style
                            edit
                            state
                            set-fn
                            get-fn]}]
-  (let [set-fn (or set-fn 
+  (let [set-fn (or set-fn
                    (fn [path v]
                      ;(println "setting " path " to: " v)
                      (swap! state assoc path v)))
-        get-fn (or get-fn 
+        get-fn (or get-fn
                    (fn [state-val path]
-                    (get state-val path)))]
-  (into [:div {:style style
-               :class class}]
-        (map #(dynamic-editor {:state state 
-                               :get-fn get-fn
-                               :set-fn set-fn} %) edit))))
+                     (get state-val path)))]
+    (into [:div {:style style
+                 :class class}]
+          (map #(dynamic-editor {:state state
+                                 :get-fn get-fn
+                                 :set-fn set-fn} %) edit))))
 
 (defn options-ui [{:keys [class style]}  ; styling
                   {:keys [current state options]
