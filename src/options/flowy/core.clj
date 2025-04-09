@@ -27,8 +27,11 @@
   (m/ap (m/?> (m/?> (count flows) (m/seed flows)))))
 
 (defn get-edit-flow [id]
-  (when-let [{:keys [options flow]} (get @running-a id)]
-    (let [latest-state-flow  (m/eduction
+  (println "get-edit-flow: " id)
+  (when-let [running (get @running-a id)]
+    (println "get-edit-flow running: " (dissoc running :flow))
+    (let [{:keys [options flow]} running
+          latest-state-flow  (m/eduction
                               (map (fn [state]
                                      (println "state (of edit-flow): " state)
                                      {:state (ui-state state options)}))
