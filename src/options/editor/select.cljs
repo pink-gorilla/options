@@ -61,5 +61,43 @@
            (map entry->option normalized-spec))))
 
 
+(defn editor-select-multiple [{:keys [set-fn options]} current-val]
+  (let [{:keys [class style spec]
+         :or {class ""
+              style {}
+              spec []}} options
+        normalized-spec (normalize-spec spec)
+        dict (into {}
+                   (map (juxt :id identity) normalized-spec))
+        current-val-str (str current-val)]
+    (println "multi-select val: " current-val "val-str: " current-val-str)
+    (into  [:select {:class class
+                     :style style
+                     :value current-val-str
+                     :multiple true
+                     ;:size 15
+                     :on-change (fn [e]
+                                  (let [id (-> e .-target .-value)
+                                        _  (println "multi-selected entry: " id)
+                                        options (.. e -target -options)
+                                        _ (println "multi-select options: " options)
+                                        selected (for [i (range (.-length options))
+                                                       :let [opt (.item options i)]
+                                                       :when (.-selected opt)]
+                                                   (.-value opt))
+                                        _ (println "multi-select selected: " selected)
+                                        ;entry (get dict id)
+                                        ;v (:val entry)
+                                        ;v (concat current-val [v])
+                                        v (->> selected
+                                               (map #(get dict %))
+                                               (map :val)
+                                               (into []))]
+                                    
+                                    (println "setting multiselect to: " (pr-str v))
+                                    (set-fn v)
+                                    ))}]
+           (map entry->option normalized-spec))))
+
 
 

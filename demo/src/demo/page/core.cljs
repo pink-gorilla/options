@@ -10,7 +10,8 @@
    :current {; select
              :year 2023
              :client 2
-             :vendor "4"
+             :clients [2]
+             :vendor ["4"]
              :pet :hamster
              :temperature 36.4
              ; bool
@@ -33,7 +34,16 @@
                      {:id 4 :name "Dumbledor"}
                      {:id 5 :name "The Hulk"}]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-             {:type :select
+              {:type :select-multiple
+              :path :clients
+              :name "Clients"
+              :spec [{:id 1 :name "Batman"}
+                     {:id 2 :name "Robin"}
+                     {:id 3 :name "Harry Potter"}
+                     {:id 4 :name "Dumbledor"}
+                     {:id 5 :name "The Hulk"}]
+              :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
+             {:type :select-multiple
               :path :vendor
               :name "Vendor"
               :spec [{:id "1" :name "Microsoft"}

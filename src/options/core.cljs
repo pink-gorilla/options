@@ -5,7 +5,7 @@
    [options.editor.view :refer [editor-view]]
    [options.editor.bool :refer [editor-bool]]
    [options.editor.string :refer [editor-string]]
-   [options.editor.select :refer [editor-select]]
+   [options.editor.select :refer [editor-select editor-select-multiple]]
    [options.editor.button :refer [editor-button]]))
 
 ; editors registry
@@ -15,6 +15,7 @@
          :string editor-string
          :button editor-button
          :select editor-select
+         :select-multiple editor-select-multiple
          :view editor-view}))
 
 (defn register-editor [t f]
