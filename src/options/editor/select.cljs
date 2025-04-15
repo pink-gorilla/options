@@ -2,16 +2,16 @@
 
 ; create-spec from vals
 
-(defn val->map [val]
+(defn val->map [idx val]
   ;; convert spec like 
   ;; [:blue :green :red]
   ;; to a spec with :id and :name
-  {:id (str val)
+  {:id (str (inc idx))
    :name (str val)
    :val val})
 
 (defn vals->spec [vals]
-  (map val->map vals))
+  (map-indexed val->map vals))
 
 ; create-spec from spec
 
@@ -46,11 +46,17 @@
         normalized-spec (normalize-spec spec)
         dict (into {}
                    (map (juxt :id identity) normalized-spec))
-        current-val (str current-val)]
+        current-val-js (if (map? (first spec))
+                         (clj->js current-val)
+                         (let [dict2 (into {} (map (juxt :val identity) normalized-spec))]
+                           (->> current-val
+                                (get dict2)
+                                (:id)
+                                (clj->js))))]
     ;(println "select val: " current-val)
     (into  [:select {:class class
                      :style style
-                     :value current-val
+                     :value current-val-js
                      :on-change (fn [e]
                                   (let [id (-> e .-target .-value)
                                         entry (get dict id)
@@ -69,33 +75,46 @@
         normalized-spec (normalize-spec spec)
         dict (into {}
                    (map (juxt :id identity) normalized-spec))
-        current-val-str (str current-val)]
-    (println "multi-select val: " current-val "val-str: " current-val-str)
+        current-val-js (if (map? (first spec))
+                          (clj->js current-val)
+                          (let [dict2 (into {} (map (juxt :val identity) normalized-spec))]
+                            ;(println "dict2: " dict2)
+                            (->> current-val
+                                 (map #(get dict2 %))
+                                 (map :id)
+                                 (into [])
+                                 (clj->js))))]
+    ;(println "multi-select val: " current-val "val-js: " current-val-js)
     (into  [:select {:class class
                      :style style
-                     :value current-val-str
+                     :value current-val-js
+                     ; using default-value, and not value fixed a problem, where selecting 
+                     ; items with the mouse would raise two events.
+                     ;:default-value current-val-js 
                      :multiple true
                      ;:size 15
+                     ;:on-mouse-up (fn [_]
+                     ;               ;(when @select-ref
+                     ;                ; (reset! finalized-selection (vec (get-selected-values {:target @select-ref})))))
+                     ;               (println "on-mouse-up"))
+                     ;:on-blur (fn [_]
+                     ;           (println "on-blur!"))
                      :on-change (fn [e]
-                                  (let [id (-> e .-target .-value)
-                                        _  (println "multi-selected entry: " id)
-                                        options (.. e -target -options)
-                                        _ (println "multi-select options: " options)
+                                  (let [options (.. e -target -options)
                                         selected (for [i (range (.-length options))
                                                        :let [opt (.item options i)]
                                                        :when (.-selected opt)]
                                                    (.-value opt))
-                                        _ (println "multi-select selected: " selected)
-                                        ;entry (get dict id)
-                                        ;v (:val entry)
-                                        ;v (concat current-val [v])
+                                        ;_ (println "multiselect selected: " selected)
                                         v (->> selected
                                                (map #(get dict %))
                                                (map :val)
                                                (into []))]
-                                    
-                                    (println "setting multiselect to: " (pr-str v))
+                                    ;(println "setting multiselect to: " (pr-str v))
                                     (set-fn v)
+                                    ;(println "bongo")
+                                    (.preventDefault e)
+                                    (.stopPropagation e)
                                     ))}]
            (map entry->option normalized-spec))))
 

@@ -11,6 +11,7 @@
              :year 2023
              :client 2
              :clients [2]
+             :fx ["EURUSD" "USDGBP" "USDJPY"]
              :vendor ["4"]
              :pet :hamster
              :temperature 36.4
@@ -43,6 +44,13 @@
                      {:id 4 :name "Dumbledor"}
                      {:id 5 :name "The Hulk"}]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
+             {:type :select-multiple
+              :path :fx
+              :name "FX"
+              :spec ["EURUSD" "USDGBP" "USDJPY"]
+              :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
+
+
              {:type :select-multiple
               :path :vendor
               :name "Vendor"
