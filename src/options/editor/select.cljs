@@ -68,10 +68,11 @@
 
 
 (defn editor-select-multiple [{:keys [set-fn options]} current-val]
-  (let [{:keys [class style spec]
+  (let [{:keys [class style spec size]
          :or {class ""
               style {}
-              spec []}} options
+              spec []
+              size 5}} options
         normalized-spec (normalize-spec spec)
         dict (into {}
                    (map (juxt :id identity) normalized-spec))
@@ -92,7 +93,7 @@
                      ; items with the mouse would raise two events.
                      ;:default-value current-val-js 
                      :multiple true
-                     ;:size 15
+                     :size size
                      ;:on-mouse-up (fn [_]
                      ;               ;(when @select-ref
                      ;                ; (reset! finalized-selection (vec (get-selected-values {:target @select-ref})))))

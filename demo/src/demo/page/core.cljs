@@ -48,6 +48,7 @@
               :path :fx
               :name "FX"
               :spec ["EURUSD" "USDGBP" "USDJPY"]
+              :size 5
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
 
 
@@ -59,6 +60,7 @@
                      {:id "3" :name "Google"}
                      {:id "4" :name "OpenSource"}
                      {:id "5" :name "Oracle"}]
+              :size 3
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
              {:type :select
               :path :pet
