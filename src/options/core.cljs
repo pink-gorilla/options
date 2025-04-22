@@ -24,13 +24,15 @@
 (defn get-editor [t]
   (or (get @editors t) editor-view))
 
-(defn editor-with-label [{:keys [value set-fn]}  {:keys [name type] :as options}]
+(defn editor-with-label [{:keys [value set-fn]}  {:keys [name type style] :as options}]
   (let [editor (get-editor type)]
     (if (= type :label)
       ; label only
       [:<>
-       [:span]
-       [:span.font-bold.font-big name]]
+       [:span (when style {:style style})]
+       [:span.font-bold.font-big 
+         (when style {:style style})
+         name]]
       ; editor
       [:<>
        [:span

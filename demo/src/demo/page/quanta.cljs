@@ -20,7 +20,7 @@
               {:type :select :path [2 :trailing-n], :name "trailing#", :spec [2 5 10 20 30 50 80 100 120 150]}
               {:type :select :path [2 :atr-n], :name "dATR#", :spec [5 10 20 30]}
               {:type :select :path [2 :percentile], :name "dPercentile", :spec [10 20 30 40 50 60 70 80 90]}
-              {:type :label  :name "v2"}
+              {:type :label  :name "v2" :style {:background-color "red"}}
               {:type :select :path [2 :step], :name "dStep", :spec [0.001 1.0E-4 4.0E-5]}
               {:type :select :path [4 :max-open-close-over-low-high], :name "doji-co/lh max", :spec [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]}])
 
