@@ -79,23 +79,25 @@
          (map first))))
 
 (defn- get-ui-value [state path]
-  (let [[k v]  (cond
-                 (keyword path)
-                 [path (get state path)]
+  (cond
+    (keyword path)
+    [path (get state path)]
 
-                 (vector? path)
-                 [path (get-in state path)]
+    (vector? path)
+    [path (get-in state path)]
 
-                 :else
-                 [path nil])]
-    ;(info "getting default value algo: " algo " path: " path)
-    [k v]))
+    :else
+    [path nil]))
 
 (defn ui-state [state options]
   ;(info "getting default values options: " options)
-  (let [paths (map :path options)]
+  (let [paths (->> options
+                   (map :path)
+                   (remove nil?) ; path is nil for :type :label
+                   )]
     ;(info "paths: " paths)
-    (->> (map #(get-ui-value state %) paths)
+    (->> paths
+         (map #(get-ui-value state %))
          (into {}))))
 
 (comment
