@@ -15,8 +15,8 @@
  :theme {:available  {:options {true ["options/options.css"]}}
          :current {:options true}}
 
- :flowy [{:fun options.flowy.core/get-edit-flow :mode :ap}
-         {:fun options.flowy.core/set-edit-value :mode :clj}]
+ #_:flowy  #_[{:fun options.flowy.core/get-edit-flow :mode :ap}
+              {:fun options.flowy.core/set-edit-value :mode :clj}]
 
  ;
  }
