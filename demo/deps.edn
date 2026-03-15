@@ -4,7 +4,7 @@
 
  :deps {org.clojure/clojure    {:mvn/version "1.12.4"}
         ; frontend
-        org.pinkgorilla/webly {:mvn/version "0.20.731"} ; build tool
+        org.pinkgorilla/webly {:mvn/version "0.20.732"} ; build tool
         org.pinkgorilla/extension {:mvn/version "0.0.16"}
         org.pinkgorilla/ui-router {:mvn/version "0.3.45"}
         org.pinkgorilla/ui-dialog-keybindings {:mvn/version "0.1.12"}

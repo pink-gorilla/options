@@ -74,6 +74,29 @@
 
 ```
 
+## Themes
+
+Include `options/options.css` and add one theme class to the options container. Each theme includes its own layout (no need to add `options-label-left` or similar).
+
+| Theme | Description |
+|-------|-------------|
+| `options-theme-minimal` | Compact, light; label left of edit. |
+| `options-theme-minimal-2-col` | Two (label, edit) pairs per row. |
+| `options-theme-minimal-n-col` | Pairs per row adapt to container width. |
+| `options-theme-card` | Card style with shadow; label left of edit. |
+| `options-theme-dark` | Dark background; label left of edit. |
+| `options-theme-line` | Label, edit, label, edit in one row; group headers inline. |
+| `options-theme-line-groups` | Like line, but group headers on their own row. |
+
+**Example — minimal theme in a narrow sidebar:**
+
+```clojure
+[options-ui2 {:class "options-theme-minimal"
+              :style {:width "280px"}
+              :edit options
+              :state state}]
+```
+
 # demo
 
 ```

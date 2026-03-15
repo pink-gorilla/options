@@ -103,7 +103,7 @@
 (comment
 
   ;; VARIATIONS
-
+  
   (add-key {:calendar [:us :d]}
            [:asset ["a" "b" "c"]])
   (map-keys {:calendar [:us :d]}
@@ -123,11 +123,9 @@
   (specter/select [0 :b :c] data)
 
   (defn no-path? [p]
-    (info "no-path: " p)
     (not (contains? paths p)))
 
-  (defn path? [p]
-    (info "path: " p)
+  (defn path? [p] 
     (contains? paths p))
 
   (no-path? :d)

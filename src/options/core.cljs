@@ -27,12 +27,8 @@
 (defn editor-with-label [{:keys [value set-fn]}  {:keys [name type style] :as options}]
   (let [editor (get-editor type)]
     (if (= type :label)
-      ; label only
-      [:<>
-       [:span (when style {:style style})]
-       [:span.font-bold.font-big 
-         (when style {:style style})
-         name]]
+      ; label only (group header) - use class options-group-header so themes can style it
+      [:span.options-group-header (or (when style {:style style}) {}) name]
       ; editor
       [:<>
        [:span

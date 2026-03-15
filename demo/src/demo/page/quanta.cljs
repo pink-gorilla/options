@@ -30,7 +30,6 @@
    [:br]
    [:h1 {:class "pt-5 pb-5 text-xl text-bold text-blue-700"} s]])
 
-
 (def state-dynamic (r/atom :a))
 
 (def state-a (r/atom {[0 :asset] "USD/JPY"
@@ -56,10 +55,8 @@
 (def edit-c [{:type :select :path [2 :step], :name "dStep", :spec [0.001 1.0E-4 4.0E-5]}
              {:type :select :path [4 :max-open-close-over-low-high], :name "doji-co/lh max", :spec [0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]}])
 
-
 (defn page [_]
   [:div
-  
 
    [h1 "state"]
    [:div (pr-str @state)]
@@ -80,7 +77,6 @@
                  :edit options
                  :state state}]
 
-
    [h1 "labels-left-1-col"]
    [options-ui2 {:class "bg-blue-300 options-label-left"
                  :style {:width "300px"
@@ -89,6 +85,54 @@
                  :edit options
                  :state state}]
 
+   [h1 "theme: minimal"]
+   [options-ui2 {:class "options-theme-minimal"
+                 :style {:width "280px"}
+                 :edit options
+                 :state state}]
+
+   [h1 "theme: minimal-2-col (label, edit, label, edit per row)"]
+   [options-ui2 {:class "options-theme-minimal-2-col"
+                 :style {:width "100%"}
+                 :edit options
+                 :state state}]
+
+   [h1 "theme: minimal-n-col (pairs per row adapts to container width)"]
+   [:div
+    [:p "Narrow (e.g. sidebar):"]
+    [options-ui2 {:class "options-theme-minimal-n-col"
+                  :style {:width "320px"}
+                  :edit options
+                  :state state}]
+    [:p "Wide:"]
+    [options-ui2 {:class "options-theme-minimal-n-col"
+                  :style {:width "100%"}
+                  :edit options
+                  :state state}]]
+
+   [h1 "theme: card"]
+   [options-ui2 {:class "options-theme-card"
+                 :style {:width "280px"}
+                 :edit options
+                 :state state}]
+
+   [h1 "theme: dark"]
+   [options-ui2 {:class "options-theme-dark"
+                 :style {:width "280px"}
+                 :edit options
+                 :state state}]
+
+   [h1 "theme: line (group header inline as text)"]
+   [options-ui2 {:class "options-theme-line"
+                 :style {:width "100%"}
+                 :edit options
+                 :state state}]
+
+   [h1 "theme: line-groups (group header on new row)"]
+   [options-ui2 {:class "options-theme-line-groups"
+                 :style {:width "100%"}
+                 :edit options
+                 :state state}]
 
    [h1 "dynamic updates"]
    [edit/select

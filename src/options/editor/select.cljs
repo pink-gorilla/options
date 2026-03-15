@@ -46,13 +46,15 @@
         normalized-spec (normalize-spec spec)
         dict (into {}
                    (map (juxt :id identity) normalized-spec))
+        ;; Option values are always string :id; pass matching string so React
+        ;; doesn't fall back to first option and doesn't warn about value/defaultValue.
         current-val-js (if (map? (first spec))
-                         (clj->js current-val)
-                         (let [dict2 (into {} (map (juxt :val identity) normalized-spec))]
-                           (->> current-val
-                                (get dict2)
-                                (:id)
-                                (clj->js))))]
+                         (clj->js (str (if (map? current-val)
+                                         (get current-val :id)
+                                         current-val)))
+                         (let [dict2 (into {} (map (juxt :val identity) normalized-spec))
+                               entry (get dict2 current-val)]
+                           (clj->js (or (when entry (:id entry)) ""))))]
     ;(println "select val: " current-val)
     (into  [:select {:class class
                      :style style
@@ -66,7 +68,6 @@
                                     (set-fn v)))}]
            (map entry->option normalized-spec))))
 
-
 (defn editor-select-multiple [{:keys [set-fn options]} current-val]
   (let [{:keys [class style spec size]
          :or {class ""
@@ -76,15 +77,16 @@
         normalized-spec (normalize-spec spec)
         dict (into {}
                    (map (juxt :id identity) normalized-spec))
+        ;; Option values are string :id; pass array of string ids for value list.
         current-val-js (if (map? (first spec))
-                          (clj->js current-val)
-                          (let [dict2 (into {} (map (juxt :val identity) normalized-spec))]
+                         (clj->js (mapv #(str (if (map? %) (get % :id) %)) (or current-val [])))
+                         (let [dict2 (into {} (map (juxt :val identity) normalized-spec))]
                             ;(println "dict2: " dict2)
-                            (->> current-val
-                                 (map #(get dict2 %))
-                                 (map :id)
-                                 (into [])
-                                 (clj->js))))]
+                           (->> (or current-val [])
+                                (map #(get dict2 %))
+                                (keep :id)
+                                (into [])
+                                (clj->js))))]
     ;(println "multi-select val: " current-val "val-js: " current-val-js)
     (into  [:select {:class class
                      :style style
@@ -115,8 +117,7 @@
                                     (set-fn v)
                                     ;(println "bongo")
                                     (.preventDefault e)
-                                    (.stopPropagation e)
-                                    ))}]
+                                    (.stopPropagation e)))}]
            (map entry->option normalized-spec))))
 
 

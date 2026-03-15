@@ -8,6 +8,8 @@
 (def config
   {:state state
    :current {; select
+             :letter :c
+             :country "Austria"
              :year 2023
              :client 2
              :clients [2]
@@ -23,6 +25,16 @@
              ; view
              :msg "hello!"}
    :options [{:type :select
+              :path :letter
+              :name "Letter (initial :c)"
+              :spec [:a :b :c :d]
+              :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
+             {:type :select
+              :path :country
+              :name "Country (initial Austria)"
+              :spec ["Panama" "Austria" "Germany" "Indonesia"]
+              :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
+             {:type :select
               :path :year
               :name "Year"
               :spec (range 2018 2024)}
@@ -35,7 +47,7 @@
                      {:id 4 :name "Dumbledor"}
                      {:id 5 :name "The Hulk"}]
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-              {:type :select-multiple
+             {:type :select-multiple
               :path :clients
               :name "Clients"
               :spec [{:id 1 :name "Batman"}
@@ -50,7 +62,6 @@
               :spec ["EURUSD" "USDGBP" "USDJPY"]
               :size 5
               :class "placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
-
 
              {:type :select-multiple
               :path :vendor
@@ -77,7 +88,7 @@
               :name "RunParallel?"
               :class "pt-0 px-2 py-1 placeholder-gray-400 text-gray-700 relative bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline"}
              {:type :bool
-              :path [:environment :enabled] 
+              :path [:environment :enabled]
               :name "EnvEnabled?"}
              {:type :string
               :path :search
@@ -86,7 +97,8 @@
              {:type :button
               :name "Go!"
               :class "bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" ; py-2 px-4
-              :on-click #(js/alert "yeah!")}
+              :on-click #(do (js/console.log "state:" (pr-str @state))
+                             (js/alert "State printed to console"))}
              {:type :view
               :path :msg
               :name "view"}

@@ -14,7 +14,7 @@
 
 (defn page [_]
   [:div
-  
+
    [h1 "state"]
    [:div " pet: " (pr-str @state-pet)
     " bool: " (pr-str @state-bool)]

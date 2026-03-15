@@ -21,7 +21,9 @@ demo-webly/karma.conf.js
 creds.edn
 creds-wien.edn
 creds-localhost.edn
-.clj-kondo
+# clj-kondo: ignore all, keep only config
+.clj-kondo/*
+!.clj-kondo/config.edn
 *~
 \#*\#
 .\#*
@@ -32,7 +34,6 @@ karma.conf.js
 package.json
 package-lock.json
 shadow-cljs.edn
-goldly_bindings_generated.cljs
 resources/META-INF
 .gorilla
 .flowy
