@@ -2,11 +2,11 @@
          "resources"
          "target/webly"]
 
- :deps {org.clojure/clojure    {:mvn/version "1.11.1"}
+ :deps {org.clojure/clojure    {:mvn/version "1.12.4"}
         ; frontend
-        org.pinkgorilla/webly {:mvn/version "0.9.724"} ; build tool
+        org.pinkgorilla/webly {:mvn/version "0.20.731"} ; build tool
         org.pinkgorilla/extension {:mvn/version "0.0.16"}
-        org.pinkgorilla/ui-router {:mvn/version "0.2.40"}
+        org.pinkgorilla/ui-router {:mvn/version "0.3.45"}
         org.pinkgorilla/ui-dialog-keybindings {:mvn/version "0.1.12"}
         org.pinkgorilla/css-theme {:mvn/version "0.1.8"}
         org.pinkgorilla/ui-tailwind {:mvn/version "0.1.8"} ; tailwind css classes
@@ -25,8 +25,7 @@
             :exec-args {:profile "npm-install"}}
            :demo
            {:exec-fn modular.system/start!
-            :exec-args {;:profile "jetty"
-                        :profile "watch"
+            :exec-args {:profile "watch"
                         :config "demo-config.edn"
                         :services "demo-services.edn"}}}
 

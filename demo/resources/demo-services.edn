@@ -3,21 +3,23 @@
  :components
  {:config1 {:start (modular.config/load-config! (:config #ref [:modular]))}
   :config {:start (deref (clip/ref :config1))}
-
   :exts {:start (extension/discover (:extension (clip/ref :config)))}
   
-  ;; executor
-  
-  :exec {:start (flowy.executor/start-executor
-                 {:env {}
-                  :exts (clip/ref :exts)}
-                 (:services (clip/ref :config)))}
-  
   ;; webserver
-  
+  :token {:start (token.core/start-token-service
+                  {:users {}
+                   :secret "AbHzj834ri9"
+                   :store-path ".gorilla/tokenstore"
+                   :providers {}
+                   :auth-expiry 604800})}
+  :clj {:start (clj-service.core/start-clj-services
+                {:exts (clip/ref :exts)
+                 :env {}})}
   :webly {:start (webly.spa/start-webly
                   {:exts (clip/ref :exts)
-                   :ctx {:flowy (flowy.reflower/start-reflower (clip/ref :exec))}}
+                   :ctx {:token (clip/ref :token)
+                         :clj (clip/ref :clj)
+                         :flowy (flowy.reflower/start-reflower (clip/ref :clj))}}
                   (clip/ref :config)
                   (:profile #ref [:modular]))
           :stop (webly.spa/stop-webly this)}
