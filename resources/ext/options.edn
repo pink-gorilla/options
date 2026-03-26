@@ -1,9 +1,9 @@
-{:name "options"
+{:extension/name :options
  ; build
- :lazy false
- :cljs-namespace [options.core
+ :cljs/module :main
+ :cljs/namespace [options.core
                   options.edit]
- :cljs-ns-bindings {'options.edit {'bool options.edit/bool
+ :cljs/ns-bindings {'options.edit {'bool options.edit/bool
                                    'button options.edit/button
                                    'select options.edit/select
                                    'string options.edit/string
